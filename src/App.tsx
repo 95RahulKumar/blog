@@ -5,10 +5,13 @@ import { useThemeSwitcher } from '@hooks/useThemeSwitcher'
 import { Button } from '@mui/material';
 import { RootState } from '@store/store';
 import { useSelector } from 'react-redux';
+import { postService } from './services/postService';
+import { useEffect } from 'react';
 
 function App() {
   const {toggleTheme} = useThemeSwitcher();
   const {askConfirmation} = useDialog();
+  const {getPost} = postService()
   const {messageDialogDetails,isSubmitted} = useSelector((state:RootState) => state.notification);
   const handleSwitchTheme = ()=>{
     toggleTheme()
@@ -17,6 +20,10 @@ function App() {
   const handleDialogOpen = ()=>{
     askConfirmation("confirmation",1);
   }
+
+  useEffect(()=>{
+    getPost()
+  },[])
   return (
     <>
     {isSubmitted && <p>hello</p>}

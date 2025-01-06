@@ -2,10 +2,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 import userReducer from '@store/reducers/userSlice';
 import notificationReducer from '@store/reducers/notificationSlice'
+import axiosReducer from '@store/reducers/axiosSlice'
 export const store = configureStore({
   reducer: {
     user:userReducer,
-    notification:notificationReducer
+    notification:notificationReducer,
+    axios:axiosReducer
   },
 })
 

@@ -1,4 +1,4 @@
 {
-    "baseUrl": "http://test.test.cc/api/",
-    "env": "prod"
+    "baseUrl":"https://jsonplaceholder.typicode.com/",
+    "env": "dev"
 }

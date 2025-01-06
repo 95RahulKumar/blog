@@ -68,3 +68,66 @@ export interface IUserInfoAPI {
     messageDialogDetails?: MessageBoxProps;
     isSubmitted?:boolean
   }
+
+  export enum AppWebSocketNSPEnum {
+    WS_NSP_CHAT = '/chat',
+  }
+
+  export interface Environment {
+    production: boolean;
+    serverAddress: string;
+    serverPort: string;
+    baseUrl: string;
+  }
+
+  export enum AppRoutesEnum {
+    CONFIG = '/config',
+    HOMEPAGE = '/homepage',
+    PROFILE = '/profile',
+    POSTS = '/posts',
+    DISCOVER = '/discover',
+    WRITE = '/write',
+    SINGLE_POST = '/single-post',
+    ALL_CATEGORIES = '/all-categories',
+  }
+  
+
+  export interface IJWTPayload {
+    exp: number;
+    iat: number;
+    jti: string;
+    token_type: 'access' | 'refresh';
+    id: number;
+    username: string;
+    userId: number;
+    identity: {
+      username: string;
+      groups: Array<{
+        description: string;
+        id: number;
+        is_active: boolean;
+        name: string;
+        permissions: Array<number>;
+      }>;
+    };
+  }
+
+
+  export interface ReqMetaData {
+    method: string;
+    url: string;
+    signal?: AbortSignal;
+    params?: object; // the request params argument eg 'userName=123&id=23'
+    data?: object;
+    loaderText?: string;
+    loaderSubText?: string;
+    headers?: object;
+    options?: any;
+  }
+
+
+  export interface HttpResponse{
+    data:any,
+    status:number;
+    statusText:string;
+  }

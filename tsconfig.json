@@ -23,6 +23,9 @@
       "@shared/*": ["src/shared/*"],
       "@theming/*": ["src/theming/*"],
       "@typings/*": ["src/typings/*"],
+      "@interceptors/*": ["src/interceptors/*"],
+      "@thunks/*": ["src/thunks/*"],
+      "@environments/*": ["src/environments/*"],
       "@images/*": ["public/images/*"],
 
     },
