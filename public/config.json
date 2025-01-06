@@ -1,0 +1,4 @@
+{
+    "baseUrl": "http://test/api/",
+    "env": "prod"
+}
