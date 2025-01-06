@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+      "target": "es6",
+      "lib": ["dom", "dom.iterable", "esnext"],
+      "module": "ES6",
+      "allowImportingTsExtensions": true,
+      "allowSyntheticDefaultImports": true,
+      "noEmit": true,
+      "strict": true,
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "moduleResolution": "node",
+      "resolveJsonModule": true,
+      "forceConsistentCasingInFileNames": true,
+      "baseUrl": "./",
+      "jsx": "react-jsx",
+      "paths": {
+        "@components/*": ["src/components/*"],
+        "@fonts/*":["src/assets/fonts/*"],
+        "@scss/*": ["src/assets/scss/*"],
+        "@images/*": ["public/images/*"],
+      },
+      "outDir": "./dist",
+      "removeComments": true,
+      "sourceMap": true
+    },
+    "include": ["src"],
+    "exclude": ["node_modules", "dist"]
+  }

@@ -1,0 +1,11 @@
+@import "@scss/external-font-size";
+@import "@scss/various";
+@import "@scss/font-face";
+@import "@scss/single-property";
+
+body {
+  box-sizing: border-box;
+  font-family: Inter Regular;
+  margin: 0;
+  padding: 0;
+}
