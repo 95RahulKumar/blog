@@ -1,5 +1,5 @@
 import { ThemeProvider } from '@mui/material/styles';
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { useSelector } from 'react-redux';
 import { ThemePrefEnum } from '@typings/common';
 import { themeDark, themeLight } from './customTheme';
@@ -13,8 +13,7 @@ type MyThemeProviderProps = {
 
 const CustomThemeProvider = ({children}:MyThemeProviderProps) => {
     const {themePref} = useSelector((state: RootState) => state.user);
-     const themeConf = (themePref == ThemePrefEnum.DARK) ? themeDark : themeLight;
-     console.log(themePref == ThemePrefEnum.DARK)
+     const themeConf = useMemo(()=>(themePref == ThemePrefEnum.DARK ? themeDark : themeLight),[themePref]);
      const {setDefaultTheme} =  useThemeSwitcher();
      useEffect(()=>{
       setDefaultTheme()

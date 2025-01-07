@@ -25,7 +25,7 @@ function resolveConfigJsonFile(): Promise<void> {
 
 resolveConfigJsonFile().then(() => {
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
+  // <StrictMode>
     <Provider store={store}>
       <CustomThemeProvider>
       <App />
@@ -33,6 +33,6 @@ createRoot(document.getElementById('root')!).render(
       <MessageDialog/>
       </CustomThemeProvider>
     </Provider>
-  </StrictMode>,
+  // </StrictMode>,
 )
 });

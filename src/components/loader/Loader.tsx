@@ -7,12 +7,9 @@ const Loader = () => {
   console.log("+++++", loading);
 
   return <>
-  {/* {loading && <div className="loader"></div>} */}
-  <div className="overlay-cont">
-    <div className="overlay">
+  {loading && <div className="overlay">
         <div className="loader"></div>
-    </div>
-  </div>
+    </div>}
   </>;
 };
 
