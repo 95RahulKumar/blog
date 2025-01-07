@@ -4,18 +4,20 @@ import { useDialog } from '@hooks/useDialog';
 import { useThemeSwitcher } from '@hooks/useThemeSwitcher'
 import { Button } from '@mui/material';
 import { RootState } from '@store/store';
-import { useSelector } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
 import { postService } from './services/postService';
 import { useEffect } from 'react';
-
+import CustomThemeProvider from '@theming/themeProvider';
+import Header from '@components/layout/header/Header';
+import Loader from '@components/loader/Loader';
+import MessageDialog from '@components/message-dialog/MessageDialog';
+import HandleRoute from '@router/HandleRoute';
 function App() {
-  const {toggleTheme} = useThemeSwitcher();
+ 
   const {askConfirmation} = useDialog();
   const {getPost} = postService()
   const {messageDialogDetails,isSubmitted} = useSelector((state:RootState) => state.notification);
-  const handleSwitchTheme = ()=>{
-    toggleTheme()
-  }
+ 
 
   const handleDialogOpen = ()=>{
     askConfirmation("confirmation",1);
@@ -26,10 +28,10 @@ function App() {
   },[])
   return (
     <>
-    {isSubmitted && <p>hello</p>}
-     <Button variant="contained" onClick={handleDialogOpen}>Open Dialog</Button>
-     <Button onClick={handleSwitchTheme} variant="contained">toggle theme</Button>
-     <Home/>
+      <Header/>
+      <HandleRoute/>
+       <Loader/>
+      <MessageDialog/>
     </>
   )
 }

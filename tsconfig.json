@@ -25,6 +25,7 @@
       "@typings/*": ["src/typings/*"],
       "@interceptors/*": ["src/interceptors/*"],
       "@thunks/*": ["src/thunks/*"],
+      "@router/*": ["src/router/*"],
       "@environments/*": ["src/environments/*"],
       "@images/*": ["public/images/*"],
 

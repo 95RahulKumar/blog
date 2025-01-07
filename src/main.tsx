@@ -10,6 +10,8 @@ import axios from 'axios'
 import UrlConfigManager from '@shared/urlConfigManager.ts'
 import { createAxiosInsFromBaseUrl } from '@store/reducers/axiosSlice.ts'
 import Loader from '@components/loader/Loader.tsx'
+import Header from '@components/layout/header/Header.tsx'
+import { BrowserRouter } from 'react-router-dom'
 
 const urlConfigManager = new UrlConfigManager();
 
@@ -26,13 +28,13 @@ function resolveConfigJsonFile(): Promise<void> {
 resolveConfigJsonFile().then(() => {
 createRoot(document.getElementById('root')!).render(
   // <StrictMode>
-    <Provider store={store}>
+  <Provider store={store}>
       <CustomThemeProvider>
+      <BrowserRouter>
       <App />
-      <Loader/>
-      <MessageDialog/>
+      </BrowserRouter>
       </CustomThemeProvider>
-    </Provider>
+      </Provider>
   // </StrictMode>,
 )
 });

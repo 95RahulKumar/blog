@@ -16,6 +16,7 @@ export default defineConfig({
       "@theming": path.resolve(__dirname, "./src/theming"),
       "@shared": path.resolve(__dirname, "./src/shared"),
       "@thunks": path.resolve(__dirname, "./src/thunks"),
+      "@router": path.resolve(__dirname, "./src/router"),
       "@interceptors": path.resolve(__dirname, "./src/interceptors"),
       "@environments": path.resolve(__dirname, "./src/environments"),
       "@images/": path.resolve(__dirname, "./public/images"),
