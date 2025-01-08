@@ -6,10 +6,10 @@ export interface Post{
         body:string
 }
 export const postService = () => {
-    const {request} = useHttp()
+    const http = useHttp()
     function getPost(): Promise<Array<Post>>{
         return new Promise(async (resolve) => {
-            const res = await request('get','posts');
+            const res = await http.request('get','posts');
             if (res?.status === 200) {
               resolve(res?.data);
             } else {

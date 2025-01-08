@@ -16,12 +16,15 @@ import { AuthStateEnum } from "@typings/user-typing";
 import { Register } from "@components/register/Register";
 import schema from "./loginScheme";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useHttp } from "@hooks/useHttp";
+import { useDispatch } from "react-redux";
+import { PushToastMessage } from "@store/reducers/toastSlice";
 type LoginProps = {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-type Inputs = {
+export type UserDetails = {
   email: string;
   password: string;
 };
@@ -34,16 +37,30 @@ export const Login = ({ open, setOpen }: LoginProps) => {
     register,
     handleSubmit,
     reset,
-    formState: { isDirty,isValid },
-  } = useForm<Inputs>({
+    formState: {errors, isDirty,isValid },
+  } = useForm<UserDetails>({
     resolver: zodResolver(schema),
+    mode: "onBlur",
   });
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    console.log(data)
-    reset()
+ const http = useHttp();
+ const dispatch = useDispatch()
+  const onSubmit: SubmitHandler<UserDetails> = async (userDetails:UserDetails) => {
+    console.log(userDetails)
+    const res = await http.request('post','/login',null,userDetails);
+    console.log(res);
+    if(res.status== 200){
+      setOpen(false)
+      reset()
+    }else{
+      dispatch(PushToastMessage({message:'Something went wrong',type:'ERROR'}))
+    }
   };
 
+  const handleCloseDialog = () =>{
+    setOpen(false);
+    reset()
+  }
   useEffect(()=>{
     setAuthState(AuthStateEnum.LOGIN);
   },[])
@@ -68,7 +85,7 @@ export const Login = ({ open, setOpen }: LoginProps) => {
               >
                 Login
               </div>
-              <div className="field mt-5 mb-4 flex justify-between items-center">
+              <div className="field mt-3 flex justify-between items-center">
                 <label
                   className="field-label basis-1/3"
                   htmlFor="email"
@@ -85,8 +102,10 @@ export const Login = ({ open, setOpen }: LoginProps) => {
                   name="email"
                 />
               </div>
-
-              <div className="field mt-5 mb-4 flex justify-between items-center">
+              { errors.email && (<Typography color="error" variant="caption">
+      {errors.email.message}
+    </Typography>)}
+              <div className="field mt-3 mb-1 flex justify-between items-center">
                 <label
                   className="field-label basis-1/3"
                   htmlFor="email"
@@ -102,20 +121,22 @@ export const Login = ({ open, setOpen }: LoginProps) => {
                   name="password"
                 />
               </div>
-
+              { errors.password && ( <Typography color="error" variant="caption">
+      {errors.password.message}
+    </Typography>)}
               <DialogActions>
                 <Button
                   disabled={!(isDirty&&isValid)}
                   variant="outlined"
                   type="submit"
-                  onClick={() => setOpen(false)}
+                  // onClick={() => setOpen(false)}
                 >
                   Submit
                 </Button>
               </DialogActions>
             </form>
             <div
-              onClick={() => setOpen(false)}
+              onClick={handleCloseDialog}
               className="w-4 h-4 absolute top-[10px] right-[20px] cursor-pointer"
             >
               <CloseIcon />

@@ -4,14 +4,12 @@ import { useSelector } from "react-redux";
 import { RootState } from "@store/store";
 import { v4 as uuidv4 } from 'uuid';
 import "./statusMessage.scss";
+import { Snackbar } from "@mui/material";
 export const StatusMessage = () => {
   const [scheduler, setScheduler] = useState<Array<ToasterProps>>([]);
   const { message } = useSelector((state: RootState) => state.toastMessage);
 
   useEffect(() => {
-    debugger
-    console.log('eeee');
-    
     const createNewToast = (message: ToastMessage) => {
         const newToast: ToasterProps = {
             id: uuidv4(),
@@ -95,14 +93,10 @@ export const AlertComponent = ({
   };
 
   return (
-    <div
-      className="toastContainer"
-      style={{
-        ...style,
-        backgroundColor: getBackgroundColorOnTypeMessage(message),
-      }}
-    >
-      <div className="message">{message?.message}</div>
-    </div>
+    <Snackbar
+        anchorOrigin={{ vertical:'top', horizontal:'right'}}
+        open={true}
+        color="primary"
+        message={message?.message} />
   );
 };
