@@ -14,6 +14,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import CloseIcon from "@mui/icons-material/Close";
 import { AuthStateEnum } from "@typings/user-typing";
 import { Register } from "@components/register/Register";
+import schema from "./loginScheme";
+import { zodResolver } from "@hookform/resolvers/zod";
 type LoginProps = {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
@@ -31,16 +33,20 @@ export const Login = ({ open, setOpen }: LoginProps) => {
   const {
     register,
     handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+    reset,
+    formState: { isDirty,isValid },
+  } = useForm<Inputs>({
+    resolver: zodResolver(schema),
+  });
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    console.log(data)
+    reset()
+  };
 
   useEffect(()=>{
     setAuthState(AuthStateEnum.LOGIN);
   },[])
-
-  console.log('open',open,'authState',authState);
   
   return (
     <>
@@ -92,12 +98,14 @@ export const Login = ({ open, setOpen }: LoginProps) => {
                   className="basis-2/3 justify-end	"
                   {...register("password")}
                   type="password"
-                  id="email"
+                  id="password"
+                  name="password"
                 />
               </div>
 
               <DialogActions>
                 <Button
+                  disabled={!(isDirty&&isValid)}
                   variant="outlined"
                   type="submit"
                   onClick={() => setOpen(false)}

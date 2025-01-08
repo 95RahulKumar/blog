@@ -73,7 +73,7 @@ export const Register = ({setOpen,setAuthState}:registerProps) => {
             Password:
           </label>
           <TextField
-            className="basis-2/3 justify-end	"
+            className="basis-2/3 justify-end"
             {...register("password")}
             type="password"
             id="email"
