@@ -4,9 +4,9 @@ import { useDispatch } from "react-redux";
 export const  useDialog = ()=>{
     const dispatch = useDispatch()
 
-    function askConfirmation(msg:string,type:MessageBoxCloseTypeEnum){
+    function askConfirmation(title:string,msg:string,type:MessageBoxCloseTypeEnum){
       const msgProp:MessageBoxProps = {
-          title: msg ?? 'Confirmation',
+          title: title ?? 'Confirmation',
           content: msg,
           type: MessageBoxTypeEnum.MESSAGE_BOX,
           closeMsg: 'Close',

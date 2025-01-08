@@ -1,12 +1,7 @@
-import Home from '@components/Home'
-import { Typography } from '@components/Typography'
-import React from 'react'
+import Home from '@pages/Home'
+import { Typography } from '@pages/Typography'
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom'
 const HandleRoute = () => {
-
-
-    
-
 
   return (
     

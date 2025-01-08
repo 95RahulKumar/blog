@@ -131,3 +131,26 @@ export interface IUserInfoAPI {
     status:number;
     statusText:string;
   }
+
+
+  export enum ToastColors {
+    WARNING = '#FFA500', // Orange
+    SUCCESS = '#4CAF50', // Green
+    ERROR = '#F44336', // Red
+    FAILURE = '#D32F2F', // Dark Red
+    INFO = '#2196F3', // Blue
+    DEFAULT = '#757575', // Grey
+  }
+  
+  export interface ToasterProps {
+    id: string;
+    message: ToastMessage;
+    visible: boolean;
+    duration?: number;
+    onHide?: () => void;
+  }
+  
+  export type ToastMessage = {
+    message: string;
+    type: 'ERROR' | 'INFO' | 'WARNING' | 'SUCCESS' | 'FAILURE';
+  };

@@ -1,23 +1,26 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import './Header.scss'
 import { Drawer, List, ListItem, ListItemButton, ListItemText, useTheme } from '@mui/material';
 import { useThemeSwitcher } from '@hooks/useThemeSwitcher';
 import { useNavigate } from 'react-router-dom';
+import { Login } from '@components/login/Login';
+import { useState } from "react"
+
 const Header = () => {
   const [hamDrawer, setHamDrawer] = React.useState(false);
    const {toggleTheme} = useThemeSwitcher();
    const navigate = useNavigate();
-  const theme = useTheme();
-
+   /**
+    * outer state for handeling the login popup
+    */
+   const [openLogin, setOpenLogin] = useState(false)
+   const theme = useTheme();
 
   const handleSwitchTheme = ()=>{
     toggleTheme()
@@ -25,8 +28,9 @@ const Header = () => {
 
 
   return (
+    <>
     <Box className="flex items-center justify-between">
-    <AppBar position="static" style={{ height: '56px' }}>
+    <AppBar position="static" color="primary" style={{ height: '56px' }}>
       <Toolbar
        sx={{
         display: 'flex',
@@ -52,14 +56,15 @@ const Header = () => {
                <Drawer className='sm:hidden' open={hamDrawer} anchor={'right'} 
                style={{zIndex:-1}}
                  PaperProps={{ sx: { marginTop: '35px' } }}
+                 onClick={() => setHamDrawer(false)}
                  ModalProps={{
                   keepMounted: true,
                 }}>
                   <Box style={{
                     marginTop:'56px',
-                    backgroundColor:'transparent'
+                   
                   }}
-               sx={{ width: 200 }} role="presentation" onClick={() => setHamDrawer(false)}>
+               sx={{ width: 200 }} role="presentation">
                     <List>
                       <ListItem key={'discover'} disablePadding>
                         <ListItemButton >
@@ -72,7 +77,7 @@ const Header = () => {
                         </ListItemButton>
                       </ListItem>
                       <ListItem key={'Login'} disablePadding>
-                          <ListItemButton >
+                          <ListItemButton onClick={()=>setOpenLogin(true)}>
                             <ListItemText primary={'Login'} />
                           </ListItemButton>
                         </ListItem>
@@ -88,7 +93,7 @@ const Header = () => {
                 <span className="fsr-16 inter mr-5 cursor-pointer"  onClick={() => navigate('/typograpy')}>
                   Write
                 </span>
-                <span className="fsr-16 inter  mr-5 cursor-pointer" >
+                <span className="fsr-16 inter  mr-5 cursor-pointer" onClick={()=>setOpenLogin(true)} >
                   Login
                 </span>
             </div>
@@ -96,6 +101,8 @@ const Header = () => {
       </Toolbar>
     </AppBar>
   </Box>
+  { <Login open={openLogin} setOpen={setOpenLogin}/>}
+  </>
   )
 }
 

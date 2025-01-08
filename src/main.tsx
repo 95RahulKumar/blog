@@ -12,6 +12,7 @@ import { createAxiosInsFromBaseUrl } from '@store/reducers/axiosSlice.ts'
 import Loader from '@components/loader/Loader.tsx'
 import Header from '@components/layout/header/Header.tsx'
 import { BrowserRouter } from 'react-router-dom'
+import { StatusMessage } from '@components/status-message/StatusMessage.tsx'
 
 const urlConfigManager = new UrlConfigManager();
 
@@ -27,14 +28,14 @@ function resolveConfigJsonFile(): Promise<void> {
 
 resolveConfigJsonFile().then(() => {
 createRoot(document.getElementById('root')!).render(
-  // <StrictMode>
-  <Provider store={store}>
+  <StrictMode>
+    <Provider store={store}>
       <CustomThemeProvider>
       <BrowserRouter>
-      <App />
+       <App />
       </BrowserRouter>
       </CustomThemeProvider>
       </Provider>
-  // </StrictMode>,
+  </StrictMode>,
 )
 });

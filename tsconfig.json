@@ -26,6 +26,7 @@
       "@interceptors/*": ["src/interceptors/*"],
       "@thunks/*": ["src/thunks/*"],
       "@router/*": ["src/router/*"],
+      "@pages/*": ["src/pages/*"],
       "@environments/*": ["src/environments/*"],
       "@images/*": ["public/images/*"],
 
