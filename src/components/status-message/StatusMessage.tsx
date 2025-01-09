@@ -21,13 +21,10 @@ export const StatusMessage = () => {
         setScheduler((prevState) => [newToast, ...prevState]);
     };
     if (message) {
-        console.log(message);
-        
       createNewToast(message);
     }
   }, [message]);
 
-  console.log("created scheduled message ", scheduler);
   const removeToast = (id: string) => {
     setScheduler((prevState) => prevState.filter((toast) => toast.id !== id));
   };
@@ -79,16 +76,13 @@ export const AlertComponent = ({
     }
   }
   useEffect(() => {
-    console.log(`Setting timer for Toast ID: ${id}`);
     const timer = setTimeout(() => {
-        console.log(`Timer executed for Toast ID: ${id}`);
       hideToast();
     }, duration);
     return () => clearTimeout(timer);
   }, []);
 
   const hideToast = () => {
-    console.log(`Clearing timer for Toast ID: ${id}`);
     onHide && onHide();
   };
 

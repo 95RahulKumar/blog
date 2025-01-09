@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -6,26 +6,72 @@ import IconButton from '@mui/material/IconButton';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import './Header.scss'
-import { Drawer, List, ListItem, ListItemButton, ListItemText, useTheme } from '@mui/material';
+import { Avatar, Button, Drawer, List, ListItem, ListItemButton, ListItemText, Menu, MenuItem, useTheme } from '@mui/material';
 import { useThemeSwitcher } from '@hooks/useThemeSwitcher';
 import { useNavigate } from 'react-router-dom';
 import { Login } from '@components/login/Login';
 import { useState } from "react"
+import { useSelector } from 'react-redux';
+import { RootState } from "@store/store";
+import { useAuth } from '@hooks/useAuth';
+import StorageHandler from "@shared/storageHandeler"
+import { MessageBoxActionEnum, MessageBoxCloseTypeEnum, ParsedUserInfo } from '@typings/common';
+import { useDialog } from '@hooks/useDialog';
 
 const Header = () => {
   const [hamDrawer, setHamDrawer] = React.useState(false);
    const {toggleTheme} = useThemeSwitcher();
+   const {askConfirmation} = useDialog()
    const navigate = useNavigate();
+   const {actionType} = useSelector((state:RootState) => state.notification)
+    const {userLoggedIn,parsedUserInfo} = useSelector((state: RootState) => state.user);
+    const {username} =  parsedUserInfo || {} as ParsedUserInfo
    /**
     * outer state for handeling the login popup
     */
    const [openLogin, setOpenLogin] = useState(false)
    const theme = useTheme();
 
+   const storageHandeler = new StorageHandler()
+   const {logout,saveAuthTocken} =   useAuth()
+  /**profile menu handeler */
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const handleSwitchTheme = ()=>{
     toggleTheme()
   }
 
+  const handleProfile = () =>{
+    navigate('/');
+    setAnchorEl(null);
+  }
+
+
+const askUserConfirmation = ()=>{
+  askConfirmation("Confirmation","Are you sure to logout?",MessageBoxCloseTypeEnum.SINGLE_ACTION_BTN,MessageBoxActionEnum.LOGIN_CONFIRM)
+  setAnchorEl(null);
+}
+
+useEffect(()=>{
+  
+  if(actionType == MessageBoxActionEnum.LOGIN_CONFIRM){
+    logout()
+  }
+},[actionType])
+
+  useEffect(()=>{
+    if(storageHandeler.jwtAccesToken){
+      saveAuthTocken(storageHandeler.jwtAccesToken)
+    }
+  },[])
+  
 
   return (
     <>
@@ -76,11 +122,27 @@ const Header = () => {
                           <ListItemText primary={'Write'} />
                         </ListItemButton>
                       </ListItem>
-                      <ListItem key={'Login'} disablePadding>
+                      { !userLoggedIn ? (<ListItem key={'Login'} disablePadding>
                           <ListItemButton onClick={()=>setOpenLogin(true)}>
                             <ListItemText primary={'Login'} />
                           </ListItemButton>
-                        </ListItem>
+                        </ListItem>) : (<>
+                          <ListItem key={'Posts'} disablePadding>
+                            <ListItemButton >
+                              <ListItemText primary={'Posts'} />
+                            </ListItemButton>
+                          </ListItem>
+                          <ListItem key={'Profile'} disablePadding>
+                            <ListItemButton >
+                              <ListItemText primary={'Profile'} />
+                            </ListItemButton>
+                          </ListItem>
+                          <ListItem key={'Logout'} disablePadding>
+                            <ListItemButton>
+                              <ListItemText primary={'Logout'} />
+                            </ListItemButton>
+                          </ListItem>
+                        </>)}
                       </List>
         </Box>
       </Drawer>
@@ -93,9 +155,33 @@ const Header = () => {
                 <span className="fsr-16 inter mr-5 cursor-pointer"  onClick={() => navigate('/typograpy')}>
                   Write
                 </span>
-                <span className="fsr-16 inter  mr-5 cursor-pointer" onClick={()=>setOpenLogin(true)} >
+
+                { !userLoggedIn ? <span className="fsr-16 inter  mr-5 cursor-pointer" onClick={()=>setOpenLogin(true)} >
                   Login
-                </span>
+                </span>:(
+                  <>
+      {/* avatar goes here  */}
+      <span className="fsr-16 inter mr-5 cursor-pointer">
+                      Posts
+                    </span>
+      <Button onClick={handleClick}>
+          <Avatar  >{username[0]}</Avatar>
+      </Button>
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        <MenuItem  onClick={handleProfile}>Profile</MenuItem>
+        <MenuItem  onClick={askUserConfirmation}>Logout</MenuItem>
+      </Menu>
+                  </>
+                )}
+              
             </div>
           
       </Toolbar>

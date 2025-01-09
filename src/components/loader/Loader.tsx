@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import './loader.scss'
 const Loader = () => {
   const { loading } = useSelector((state: RootState) => state.axios);
-  console.log("+++++", loading);
 
   return <>
   {loading && <div className="overlay">

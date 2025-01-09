@@ -17,8 +17,10 @@ import { Register } from "@components/register/Register";
 import schema from "./loginScheme";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useHttp } from "@hooks/useHttp";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { PushToastMessage } from "@store/reducers/toastSlice";
+import { useAuth } from "@hooks/useAuth";
+import { RootState } from "@store/store";
 type LoginProps = {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
@@ -44,12 +46,14 @@ export const Login = ({ open, setOpen }: LoginProps) => {
   });
 
  const http = useHttp();
- const dispatch = useDispatch()
+ const dispatch = useDispatch();
+const {saveAuthTocken} = useAuth()
   const onSubmit: SubmitHandler<UserDetails> = async (userDetails:UserDetails) => {
     console.log(userDetails)
     const res = await http.request('post','/login',null,userDetails);
     console.log(res);
-    if(res.status== 200){
+    if(res.status == 200){
+      saveAuthTocken(res.data?.token)
       setOpen(false)
       reset()
     }else{
@@ -57,6 +61,8 @@ export const Login = ({ open, setOpen }: LoginProps) => {
     }
   };
 
+
+  
   const handleCloseDialog = () =>{
     setOpen(false);
     reset()

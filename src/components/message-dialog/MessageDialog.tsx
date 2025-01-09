@@ -7,12 +7,12 @@ import { useDispatch, useSelector } from "react-redux";
 
 function MessageDialog() {
     const [dialogVisibility, setdialogVisibility] = useState(false);
-    const {isSubmitted,messageDialogDetails} = useSelector((state:RootState) => state.notification);
+    const {messageDialogDetails} = useSelector((state:RootState) => state.notification);
     const dispatch = useDispatch()
 
-    const onConfirmClick=(isSubmitted:boolean) =>{
+    const onConfirmClick=() =>{
       setdialogVisibility(false)
-      dispatch(SubmitDialog(isSubmitted));
+      dispatch(SubmitDialog(messageDialogDetails?.actionType));
     }
 
     const onCloseClick=() =>{

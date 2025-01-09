@@ -13,25 +13,21 @@ import Header from '@components/layout/header/Header';
 import Loader from '@components/loader/Loader';
 import MessageDialog from '@components/message-dialog/MessageDialog';
 import HandleRoute from '@router/HandleRoute';
-import CustomThemeProvider from '@theming/themeProvider';
 import { StatusMessage } from '@components/status-message/StatusMessage';
 
 function App() {
  
   const {askConfirmation} = useDialog();
   const {getPost} = postService()
-
-  const handleDialogOpen = ()=>{
-    askConfirmation("Confirmation","Are you Sure ?",1);
-  }
-  
   const dispatch = useDispatch()
   const handlePushMessage = ()=>{
     dispatch(PushToastMessage({message:'hello',type:"SUCCESS"}))
   }
 
   useEffect(()=>{
-    getPost()
+    // if(storageHandeler.jwtAccesToken){
+    //   saveAuthTocken(storageHandeler.jwtAccesToken)
+    // }
   },[])
   return (
     <>

@@ -19,6 +19,7 @@ const HandleRoute = () => {
 export default HandleRoute
 
 function AuthGuard() {
-    const token = true
-    return token ? <Outlet /> : <Navigate to="/login" />;
+  return <Outlet />;
+    // const token = true
+    // return token ? <Outlet /> : <Navigate to="/login" />;
   }

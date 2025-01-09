@@ -48,7 +48,6 @@ const axiosReducer = createSlice({
         .addCase(makeRequest.rejected, (state,action) => {
           state.error = true;
           state.loading = false;
-          console.error("Request failed:", action.payload);
         });
     },
   });

@@ -4,16 +4,25 @@ export enum ThemePrefEnum {
   }
 
 
+// export interface ParsedUserInfo {
+//     username: string;
+//     id: number;
+//     description: string;
+//     role: string;
+//     permissions: Array<number>;
+//     tokenIssueEpoch: number;
+//     tokenExpEpoch: number;
+//     token: string;
+//   }
+
 export interface ParsedUserInfo {
-    username: string;
-    id: number;
-    description: string;
-    role: string;
-    permissions: Array<number>;
-    tokenIssueEpoch: number;
-    tokenExpEpoch: number;
-    token: string;
-  }
+  tokenExpEpoch: number;
+  tokenIssueEpoch: number;
+  id: number;
+  token: string;
+  role:string,
+  username: string;
+}
 
 
 export interface IUserInfoAPI {
@@ -36,8 +45,8 @@ export interface IUserInfoAPI {
   }
 
 
-  export enum MessageBoxTypeEnum {
-    MESSAGE_BOX = 1,
+  export enum MessageBoxActionEnum {
+    LOGIN_CONFIRM = 1,
   }
 
   export enum MessageIconTypeEnum {
@@ -48,25 +57,25 @@ export interface IUserInfoAPI {
   }
 
   export enum MessageBoxCloseTypeEnum {
-    CONFIRM_LOGOUT = 1,
-    CONFIRM_DELETE_POST = 2,
-    CONFIRM_DELETE_COMMENT = 3,
+    SINGLE_ACTION_BTN = 1,
+    DOUBLE_ACTION_BTN = 2,
   }
 
+
   export interface MessageBoxProps {
-    type: MessageBoxTypeEnum;
+    type: MessageBoxCloseTypeEnum;
     title: string;
     content: string;
     iconType?: MessageIconTypeEnum;
     confirmMsg?: string;
     closeMsg?: string;
-    confirmFor?: MessageBoxCloseTypeEnum;
+    actionType:MessageBoxActionEnum
   }
 
 
   export interface INotificationReducerState {
     messageDialogDetails?: MessageBoxProps;
-    isSubmitted?:boolean
+    actionType?:MessageBoxActionEnum | null
   }
 
   export enum AppWebSocketNSPEnum {
@@ -98,18 +107,20 @@ export interface IUserInfoAPI {
     jti: string;
     token_type: 'access' | 'refresh';
     id: number;
-    username: string;
-    userId: number;
-    identity: {
-      username: string;
-      groups: Array<{
-        description: string;
-        id: number;
-        is_active: boolean;
-        name: string;
-        permissions: Array<number>;
-      }>;
-    };
+    // username: string;
+    role:string,
+    name: string;
+    // userId: number;
+    // identity: {
+    //   username: string;
+    //   groups: Array<{
+    //     description: string;
+    //     id: number;
+    //     is_active: boolean;
+    //     name: string;
+    //     permissions: Array<number>;
+    //   }>;
+    // };
   }
 
 

@@ -6,13 +6,21 @@ import { environment } from "@environments/environment.prod";
 export default class UrlConfigManager extends StorageHandler {
   setParsedTokenData() {
     const parsedTokenData = this.parseJwt(this.jwtAccesToken as string);
+    // this.parsedUserInfo = {
+    //   id: parsedTokenData?.userId,
+    //   username: parsedTokenData?.username,
+    //   role: parsedTokenData?.identity?.groups?.[0]?.name,
+    //   token: this.jwtAccesToken as string,
+    //   description: parsedTokenData?.identity?.groups?.[0]?.description,
+    //   permissions: parsedTokenData?.identity?.groups?.[0]?.permissions,
+    //   tokenIssueEpoch: parsedTokenData?.iat,
+    //   tokenExpEpoch: parsedTokenData?.exp,
+    // };
     this.parsedUserInfo = {
-      id: parsedTokenData?.userId,
-      username: parsedTokenData?.username,
-      role: parsedTokenData?.identity?.groups?.[0]?.name,
+      id: parsedTokenData?.id,
+      username: parsedTokenData?.name,
+      role: parsedTokenData?.role,
       token: this.jwtAccesToken as string,
-      description: parsedTokenData?.identity?.groups?.[0]?.description,
-      permissions: parsedTokenData?.identity?.groups?.[0]?.permissions,
       tokenIssueEpoch: parsedTokenData?.iat,
       tokenExpEpoch: parsedTokenData?.exp,
     };

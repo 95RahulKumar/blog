@@ -3,7 +3,7 @@ import { INotificationReducerState } from "@typings/common"
 
 const initialState:INotificationReducerState = {
     messageDialogDetails:undefined,
-    isSubmitted:false
+    actionType:null
 }
 
 export const notificationSlice = createSlice({
@@ -11,10 +11,10 @@ export const notificationSlice = createSlice({
     initialState,
     reducers: {
         setMessageDialogDetails:(state,action)=>{
-            state.messageDialogDetails = action.payload
+            state.messageDialogDetails = action.payload;
         },
         SubmitDialog:(state,action)=>{
-            state.isSubmitted = action.payload
+            state.actionType = action.payload
         }
     },
   })

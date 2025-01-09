@@ -20,11 +20,12 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    userActiveAction:(state)=>{
-
+    userActiveAction:(state,action)=>{
+    state.userLoggedIn = action?.payload;
     },
-    setUserInfo:(state)=>{
-        
+    setUserInfo:(state,action)=>{
+      state.userLoggedIn = true;
+      state.parsedUserInfo = action.payload
     },
     userDetailsAction:(state)=>{
         

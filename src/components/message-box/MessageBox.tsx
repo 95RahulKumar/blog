@@ -5,24 +5,24 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
-import { MessageBoxProps } from '@typings/common';
+import { MessageBoxCloseTypeEnum, MessageBoxProps, MessageIconTypeEnum } from '@typings/common';
 
 export const MessageBox = ({dialogDetails,confirmBtnEmitter,closeBtnEmitter}:{
-  dialogDetails:MessageBoxProps|undefined,
+  dialogDetails:MessageBoxProps | undefined,
   confirmBtnEmitter:(arg:boolean)=> void,
   closeBtnEmitter:()=>void
 }) => {
     const [open, setOpen] = useState(true);
     const handleClose = ()=>{
-      setOpen(false)
       closeBtnEmitter()
+      setOpen(false)
     }
     
     const handleSubmit = ()=>{
-      setOpen(true)
       confirmBtnEmitter(true);
+      setOpen(true)
     }
-
+  
   return (
     <Dialog
     open={open}
@@ -39,10 +39,22 @@ export const MessageBox = ({dialogDetails,confirmBtnEmitter,closeBtnEmitter}:{
       </DialogContentText>
     </DialogContent>
     <DialogActions>
-      <Button variant="outlined" onClick={handleClose}>{dialogDetails?.closeMsg??'close'}</Button>
-      <Button variant="outlined" onClick={handleSubmit} autoFocus>
+
+      {(dialogDetails && dialogDetails.type == MessageBoxCloseTypeEnum.SINGLE_ACTION_BTN) && <Button variant="outlined" onClick={handleSubmit} autoFocus>
       {dialogDetails?.confirmMsg ?? 'Ok'}
-      </Button>
+      </Button>}
+
+      {(dialogDetails && dialogDetails.type == MessageBoxCloseTypeEnum.DOUBLE_ACTION_BTN) &&
+      
+      <>
+        <Button variant="outlined" onClick={handleClose}>{dialogDetails?.closeMsg??'close'}</Button>
+      
+        <Button variant="outlined" onClick={handleSubmit} autoFocus>
+        {dialogDetails?.confirmMsg ?? 'Ok'}
+        </Button>
+
+      </>}
+
     </DialogActions>
   </Dialog>
   )

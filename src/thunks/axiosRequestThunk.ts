@@ -7,7 +7,6 @@ const makeRequest = createAsyncThunk(
   "user/fetchUserData",
   async (configParams:ReqMetaData, { extra }) => {
     const axiosConfig = {...configParams}
-    console.log('extra',extra);
     
     /**
      * this returnPayload function will return only set of response to client 

@@ -1,17 +1,17 @@
 import { setMessageDialogDetails } from "@store/reducers/notificationSlice";
-import { MessageBoxCloseTypeEnum, MessageBoxProps, MessageBoxTypeEnum } from "@typings/common";
+import { MessageBoxActionEnum, MessageBoxCloseTypeEnum, MessageBoxProps } from "@typings/common";
 import { useDispatch } from "react-redux";
 export const  useDialog = ()=>{
     const dispatch = useDispatch()
 
-    function askConfirmation(title:string,msg:string,type:MessageBoxCloseTypeEnum){
+    function askConfirmation(title:string,msg:string,type:MessageBoxCloseTypeEnum,actionType:MessageBoxActionEnum){
       const msgProp:MessageBoxProps = {
           title: title ?? 'Confirmation',
           content: msg,
-          type: MessageBoxTypeEnum.MESSAGE_BOX,
+          type,
           closeMsg: 'Close',
           confirmMsg: 'Confirm',
-          confirmFor: type,
+          actionType
       }
       dispatch(setMessageDialogDetails(msgProp))
     }
