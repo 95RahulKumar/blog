@@ -138,7 +138,7 @@ useEffect(()=>{
                             </ListItemButton>
                           </ListItem>
                           <ListItem key={'Logout'} disablePadding>
-                            <ListItemButton>
+                            <ListItemButton onClick={askUserConfirmation}>
                               <ListItemText primary={'Logout'} />
                             </ListItemButton>
                           </ListItem>
