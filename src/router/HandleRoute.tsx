@@ -1,13 +1,13 @@
-import Home from '@pages/Home'
+import AllProducts from '@pages/AllProducts';
 import { Typography } from '@pages/Typography'
-import { Navigate, Outlet, Route, Routes } from 'react-router-dom'
+import { Outlet, Route, Routes } from 'react-router-dom'
 const HandleRoute = () => {
 
   return (
     
     <Routes>
     <Route element={<AuthGuard/>}>
-        <Route path='/' element={<Home/>} />
+        <Route path='/' element={<AllProducts/>} />
         <Route path='/typograpy' element={<Typography/>} />
     </Route>
     {/* <Route path='/login' element={<Login/>}/> */}

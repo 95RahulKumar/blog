@@ -12,8 +12,12 @@ export const themeLight:ThemeOptions = createTheme({
       secondary: {
         main: purple[500],
       },
+      background: {
+        default: 'rgb(112 123 222 / 2%)', 
+      },
     },
   components:{
+
     MuiDialog:{
       styleOverrides: {
         root: {
@@ -27,6 +31,7 @@ export const themeLight:ThemeOptions = createTheme({
         },
       },
     },
+
     MuiButton: {
       defaultProps: {
         // The props to change the default for.
@@ -38,10 +43,12 @@ export const themeLight:ThemeOptions = createTheme({
             {
               props: { variant: 'outlined' },
               style: {
-                borderColor: '#888',
+                borderColor: '#e5e7eb',
+                borderRadius:'5px'
               },
             },
           ],
+          fontFamily:'Inter Regular',
           fontWeight: 'bold',
           textTransform: 'unset',
           color: '#666',
@@ -100,16 +107,42 @@ export const themeLight:ThemeOptions = createTheme({
       },
     },
 
-    // MuiPaper: {
-    //   styleOverrides: {
-    //     root: {
-    //       backgroundColor: 'inherit',
-    //       boxShadow: 'none',
-    //       backgroundImage: 'none',
-    //       // filter: "drop-shadow(0px 4px 4px rgba(87, 87, 87, 0.25))",
-    //     },
-    //   },
-    // },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          '&.MuiPaper-outlined':{
+            fontFamily:'Inter Regular'
+          },
+          
+        },
+      },
+    },
+    MuiDrawer:{
+      styleOverrides: {
+        root: {
+          '& .MuiDrawer-paper':{
+            marginTop:'56px'
+          },
+          '& .MuiBackdrop':{
+            marginTop:'56px',
+          }
+        },
+      },
+    },
+    MuiAppBar:{
+      styleOverrides: {
+        root: {
+        boxShadow:'unset'
+        },
+      },
+    },
+    MuiTypography:{
+      styleOverrides: {
+        root: {
+          fontFamily:'Inter Regular'
+        },
+      },
+    },
 
     MuiTableRow: {
       styleOverrides: {
@@ -130,10 +163,12 @@ export const themeLight:ThemeOptions = createTheme({
     MuiAutocomplete: {
       styleOverrides: {
         root: {
-          backgroundColor: '#F9F9F9',
+          
           color: '#191919',
           filter: 'drop-shadow(0px 4px 4px rgba(87, 87, 87, 0.25))',
-
+          '& .MuiOutlinedInput-root':{
+            padding:'0'
+          },
           '& .MuiInputLabel-root': {
             color: '#191919 !important',
           },
@@ -141,6 +176,12 @@ export const themeLight:ThemeOptions = createTheme({
             color: '#191919 !important',
             backgroundColor: 'unset !important',
           },
+          '& .MuiAutocomplete-input':{
+            backgroundColor:'#f0ec6430'
+          },
+          '& .MuiAutocomplete-clearIndicator':{
+            color:'red'
+          }
         },
       },
     },
@@ -183,6 +224,18 @@ export const themeDark:ThemeOptions = createTheme({
       },
     },
     components: {
+      MuiDrawer:{
+        styleOverrides: {
+          root: {
+            '& .MuiDrawer-paper':{
+              marginTop:'56px'
+            },
+            '& .MuiBackdrop':{
+              marginTop:'56px',
+            }
+          },
+        },
+      },
       MuiButton: {
         defaultProps: {
           // The props to change the default for.
@@ -192,7 +245,8 @@ export const themeDark:ThemeOptions = createTheme({
           root: {
             fontWeight: 'bold',
             textTransform: 'unset',
-  
+            fontFamily:'Inter Regular',
+            borderRadius:'5px',
             '&.Mui-disabled': {
               background: '#757575',
               color: '#454545',
@@ -260,17 +314,56 @@ export const themeDark:ThemeOptions = createTheme({
         },
       },
   
-      // MuiPaper: {
-      //   styleOverrides: {
-      //     root: {
-      //       backgroundColor: 'inherit',
-      //       boxShadow: 'none',
-      //       backgroundImage: 'none',
-      //       // filter: "drop-shadow(0px 4px 4px rgba(87, 87, 87, 0.25))",
-      //     },
-      //   },
-      // },
-  
+      MuiPaper: {
+        styleOverrides: {
+          root: {
+            '&.MuiPaper-outlined':{
+              fontFamily:'Inter Regular'
+            }
+          },
+        },
+      },
+      MuiAppBar:{
+        styleOverrides: {
+          root: {
+          boxShadow:'unset'
+          },
+        },
+      },
+      MuiTypography:{
+        styleOverrides: {
+          root: {
+            fontFamily:'Inter Regular'
+          },
+        },
+      },
+
+      MuiAutocomplete: {
+        styleOverrides: {
+          root: {
+            backgroundColor: '#F9F9F9',
+            color: '#191919',
+            filter: 'drop-shadow(0px 4px 4px rgba(87, 87, 87, 0.25))',
+            borderRadius:'5px',
+            '& .MuiOutlinedInput-root':{
+              padding:'0'
+            },
+            '& .MuiInputLabel-root': {
+              color: '#191919 !important',
+            },
+            '& .MuiInputBase-root': {
+              color: '#191919 !important',
+              backgroundColor: 'unset !important',
+            },
+            '& .MuiAutocomplete-clearIndicator':{
+              color:'red !important'
+            },
+            '& .MuiSvgIcon-root':{
+              fill:'#666 !important'
+            }
+          },
+        },
+      },
       MuiMenuItem: {
         styleOverrides: {
           root: {

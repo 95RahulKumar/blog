@@ -30,17 +30,16 @@ export const StatusMessage = () => {
   };
 
   return (
-    <div>
+    <>
       {scheduler.map((toast, index) => (
-        <div className="container">
+        <div className="container"  key={toast.id}>
           <AlertComponent
-            key={toast.id}
             {...toast}
             style={{ top: index * 70 }}
           />
         </div>
       ))}
-    </div>
+    </>
   );
 };
 

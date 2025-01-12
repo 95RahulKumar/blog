@@ -55,13 +55,13 @@ const Header = () => {
 
 
 const askUserConfirmation = ()=>{
-  askConfirmation("Confirmation","Are you sure to logout?",MessageBoxCloseTypeEnum.SINGLE_ACTION_BTN,MessageBoxActionEnum.LOGIN_CONFIRM)
+  askConfirmation("Confirmation","Are you sure to logout?",MessageBoxCloseTypeEnum.SINGLE_ACTION_BTN,MessageBoxActionEnum.LOGOUT_CONFIRM)
   setAnchorEl(null);
 }
 
 useEffect(()=>{
   
-  if(actionType == MessageBoxActionEnum.LOGIN_CONFIRM){
+  if(actionType == MessageBoxActionEnum.LOGOUT_CONFIRM){
     logout()
   }
 },[actionType])
@@ -76,7 +76,7 @@ useEffect(()=>{
   return (
     <>
     <Box className="flex items-center justify-between">
-    <AppBar position="static" color="primary" style={{ height: '56px' }}>
+    <AppBar position="fixed" color="primary" style={{ height: '56px' }}>
       <Toolbar
        sx={{
         display: 'flex',
@@ -100,8 +100,6 @@ useEffect(()=>{
                 </label>
                </span>
                <Drawer className='sm:hidden' open={hamDrawer} anchor={'right'} 
-               style={{zIndex:-1}}
-                 PaperProps={{ sx: { marginTop: '35px' } }}
                  onClick={() => setHamDrawer(false)}
                  ModalProps={{
                   keepMounted: true,

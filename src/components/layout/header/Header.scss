@@ -5,7 +5,8 @@
   flex-direction: column;
   width: 30px;
   cursor: pointer;
-
+  position: relative;
+  z-index: 111111 !important;
   span {
     border-radius: 10px;
     height: 2px;

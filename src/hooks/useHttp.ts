@@ -23,6 +23,7 @@ function request(method: string, url: string, params?: any, body = {}, headers?:
             data:body,
             signal
         } as ReqMetaData
+        console.log(requesConfig)
         dispatch(makeRequest(requesConfig)).then((res: any)=>{
             resolve(res?.payload as HttpResponse);
         })

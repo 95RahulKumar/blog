@@ -8,6 +8,7 @@ const makeRequest = createAsyncThunk(
   async (configParams:ReqMetaData, { extra }) => {
     const axiosConfig = {...configParams}
     
+    
     /**
      * this returnPayload function will return only set of response to client 
      */
@@ -15,7 +16,7 @@ const makeRequest = createAsyncThunk(
     const returnPayload = (data:any,status:number,statusText:string):HttpResponse => ({data,status,statusText});
     try{
         const response:AxiosResponse = await axiosInstance(axiosConfig);
-
+console.log('response',response)
         /**
          * returning the success response
          */

@@ -46,7 +46,7 @@ export interface IUserInfoAPI {
 
 
   export enum MessageBoxActionEnum {
-    LOGIN_CONFIRM = 1,
+    LOGOUT_CONFIRM = 1,
   }
 
   export enum MessageIconTypeEnum {

@@ -27,6 +27,7 @@
       "@thunks/*": ["src/thunks/*"],
       "@router/*": ["src/router/*"],
       "@pages/*": ["src/pages/*"],
+      "@services/*": ["src/services/*"],
       "@environments/*": ["src/environments/*"],
       "@images/*": ["public/images/*"],
 
