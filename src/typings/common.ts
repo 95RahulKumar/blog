@@ -91,8 +91,9 @@ export interface IUserInfoAPI {
 
   export enum AppRoutesEnum {
     CONFIG = '/config',
-    HOMEPAGE = '/homepage',
-    PROFILE = '/profile',
+    ROOT='/',
+    ALLP_RODUCTS = '/all-products',
+    SINGLE_PRODUCTS = '/product',
     POSTS = '/posts',
     DISCOVER = '/discover',
     WRITE = '/write',

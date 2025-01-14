@@ -1,7 +1,7 @@
 import { AppWebSocketNSPEnum, Environment } from "@typings/common";
 
 const hostAddress = 'localhost';
-const hostPort = '8005';
+const hostPort = '3000';
 const hostProto = 'http://';
 const apiEPSuffix = '/api/';
 const baseURL = `${hostProto}${hostAddress}:${hostPort}${apiEPSuffix}`;

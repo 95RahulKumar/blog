@@ -6,13 +6,14 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { productService } from "@services/productService";
-
+import { useNavigate } from "react-router";
+import { AppRoutesEnum } from "@typings/common";
 const AllProducts = () => {
   const [products, setProducts] = useState<Array<IProducts>>([])
   const [selectedProduct, setSelectedProduct] = useState<string>('');
    const {getProducts,getProductByID} =  productService()
   const productList = useRef<Array<IProducts>>([])
-
+  const navigate = useNavigate();
 
   const handleClose = (event: SyntheticEvent<Element, Event>, value: IProducts | null, reason: AutocompleteChangeReason)=>{
     if(reason=='selectOption'){
@@ -29,13 +30,20 @@ const AllProducts = () => {
   const  fetchProducts = async() =>{
     const products:Array<IProducts> = await getProducts();
     setProducts(products)
-    productList.current = products
+    // productList.current = products
   }
 
-  const  fetchSingleProduct = async() =>{
-      const product:Array<IProducts> = await getProductByID(selectedProduct);
-      setProducts(product)
-       productList.current = product
+  // const  fetchSingleProduct = async() =>{
+    const  displaySingleProduct = async() =>{
+      // const product:Array<IProducts> = await getProductByID(selectedProduct);
+      // setProducts(product)
+      //  productList.current = product
+      /*
+      *optimizatin dont make an api call here 
+      */
+        // const singleProd = productList.current.filter(item=>item._id==selectedProduct)
+        const singleProd = products.filter(item=>item._id==selectedProduct)
+        setProducts(singleProd)
   }
 
  useEffect(()=>{
@@ -44,7 +52,8 @@ const AllProducts = () => {
 
   useEffect(()=>{
     if(selectedProduct){
-    fetchSingleProduct();
+    // fetchSingleProduct();
+    displaySingleProduct()
     }
    },[selectedProduct])
 
@@ -53,8 +62,10 @@ const AllProducts = () => {
   {products &&  <div className="m-auto w-[95%] mt-20">
     <Autocomplete
      className="mb-5"
-      options={productList.current}
-      disabled={!productList.current}
+      // options={productList.current}
+      options={products}
+      // disabled={!productList.current}
+      disabled={!products}
       getOptionLabel={(option) => option.name}
       sx={{ width: 300 }}
       renderInput={(params) => <TextField {...params}  placeholder="Seach Products here..."/>}
@@ -85,7 +96,7 @@ const AllProducts = () => {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button disabled={!item.stock} color="success" variant="outlined"size="small">View More</Button>
+          <Button  color="success" onClick={()=>navigate(`${AppRoutesEnum.SINGLE_PRODUCTS}/${item._id}`,{state:item})} variant="outlined"size="small">View More</Button>
         </CardActions>
       </Card>
        {/* card end here */}
